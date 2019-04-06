@@ -16,7 +16,7 @@ This setup uses **Virtual Box** as its _provider_. Again, if you haven't done th
 
 ## Ensure that Virtualization is enabled in your Host System
 
-If you are using **Windows**, you may need to enable _hardware virtualization (VT-x)_. It can usually be enabled via your _BIOS_. If you are using **Hyper-V** on a _UEFI system_ you may additionally need to disable **Hyper-V** in order to access **VT-x**.
+If you are using **Windows**, you may need to enable _hardware virtualization (VT-x)_. It can usually be enabled via your _BIOS_. If you are using **Hyper-V** on a _UEFI system_ you may additionally need to disable **Hyper-V** in order to access **VT-x**. (c) [Laravel Homestead](https://laravel.com/docs/5.8/homestead#configuring-homestead).
 
 ---
 
@@ -39,6 +39,15 @@ bash init.sh
 
 # Windows
 init.bat
+```
+
+## Configuring Shared Folders
+The `folders` property of the `vagrant-docker.yaml` file lists all of the folders you wish to share with your `Vagrant Docker` environment. As files within these folders are changed, they will be kept in sync between your local machine and the `Vagrant Docker` environment. You may configure as many _shared folders_ as necessary:
+
+```
+folders:
+  - map: ~/code
+  - to: /home/vagrant/code
 ```
 
 ## Turn on the Engines
