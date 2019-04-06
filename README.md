@@ -1,6 +1,6 @@
 # About Vagrant Docker
 
-It aims to provide a virtual machine that can run multiple applications that run through [docker](https://docker.com/). The machine does not care how the dockerized application is setup, it just provides **docker** and **docker-compose** on top of a base **ubuntu box**.
+It aims to provide a virtual machine that can run multiple applications that run through [docker](https://docker.com/). The machine doesn't care how your dockerized applications are constructed, it just provides a bridge from your _host_ machine to a **linux** virtual machine so that you can use `docker` and `docker-compose`.
 
 ---
 
@@ -30,5 +30,25 @@ repository just inside your "home" directory:
 
 `git clone https://github.com/palonponjovertlota/vagrant-docker ~/vagrant-docker`
 
-### Turn on the Engines
-You should `cd` inside the project: `cd ~/vagrant-docker`. From here, you can then `vagrant up` to boot-up your machines. Make sure to check the `Vagrantfile` before doing so.
+### Initialize Vagrant Docker
+Once you have cloned the _Vagrant Docker_ repository, run the `bash init.sh` command from the `~/vagrant-docker` directory to create the `vagrant-docker.yaml` configuration file. The `vagrant-docker.yaml` file will be placed in the `~/vagrant-docker` directory:
+
+```
+# Linux / Mac
+bash init.sh
+
+# Windows
+init.bat
+```
+
+## Turn on the Engines
+You should `cd` inside the project: `cd ~/vagrant-docker`. From here, you can then `vagrant up` to boot-up your machines. Make sure to check the `vagrant-docker.yaml` before doing so.
+
+You can check if the machine is up and running: `vagrant status`. If you want to check if your folders are mapped correctly:
+
+```
+vagrant ssh
+
+# list the files inside the directory we mapped into.
+ls /vagrant/code
+```

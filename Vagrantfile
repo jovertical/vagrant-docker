@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+
+settings = YAML.load_file('vagrant-docker.yaml')
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -23,23 +27,18 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   config.vm.network "forwarded_port", guest: 80, host: 80, host_ip: "127.0.0.1"
+  config.vm.hostname = "vagrant-docker"
 
-  # Define the list of virtual machines here, this can be useful if you are
-  # working on multiple dockerized applications, a 1 machine to 1 application
-  # ratio is ideal here since you would likely connect to a different address,
-  # synchronize different directory for each one of those applications.
-  config.vm.define "example" do |example|
-    example.vm.hostname = "example"
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: settings['ip']
 
-    # Create a private network, which allows host-only access to the machine
-    # using a specific IP.
-    example.vm.network "private_network", ip: "192.168.10.10"
-
-    # Share an additional folder to the guest VM. The first argument is
-    # the path on the host to the actual folder. The second argument is
-    # the path on the guest to mount the folder. And the optional third
-    # argument is a set of non-required options.
-    config.vm.synced_folder "~/code/example", "/home/vagrant/example"
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  settings['folders'].each do |folder|
+    config.vm.synced_folder folder['map'], folder['to']
   end
 
   # Provider-specific configuration so you can fine-tune various
@@ -49,7 +48,10 @@ Vagrant.configure("2") do |config|
     vb.gui = false
 
     # Customize the amount of memory on the VM:
-    vb.memory = 512
+    vb.memory = settings['memory']
+
+    # Customize the number of CPU Cores will be used by the vm.
+    vb.cpus = settings['cpus']
   end
 
   # Install additional plugins that you want to provision later such as
