@@ -38,7 +38,8 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   settings['folders'].each do |folder|
-    config.vm.synced_folder folder['map'], folder['to']
+    config.vm.synced_folder folder['map'], folder['to'],
+    group:'vagrant', owner:'www-data'
   end
 
   # Provider-specific configuration so you can fine-tune various
