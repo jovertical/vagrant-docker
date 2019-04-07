@@ -41,6 +41,15 @@ bash init.sh
 init.bat
 ```
 
+### Re-Inizializing Vagrant Docker
+There might be some occasions that you will need to re-initialize **Vagrant Docker**, for example there are some _config files_ that are added. You could initialize again and should receive a prompt if you would like to override the _published files_:
+
+```
+cp: overwrite 'vagrant-docker.yaml'? y
+cp: overwrite 'aliases'? n
+Vagrant Docker Initialized!
+```
+
 ## Configuring Shared Folders
 The `folders` property of the `vagrant-docker.yaml` file lists all of the folders you wish to share with your `Vagrant Docker` environment. As files within these folders are changed, they will be kept in sync between your local machine and the `Vagrant Docker` environment. You may configure as many _shared folders_ as necessary:
 
@@ -66,6 +75,8 @@ ls /vagrant/code
 For your convenience, many `docker` and `docker-compose` command aliases are included out of the box:
 
 ```
+#!/usr/bin/env bash
+
 alias dcb='docker-compose build'
 alias dcdown='docker-compose down'
 alias dce='docker-compose exec'
@@ -78,6 +89,8 @@ alias dcrestart='docker-compose restart'
 alias dcrm='docker-compose rm'
 alias dcstop='docker-compose stop'
 alias dcup='docker-compose up'
+alias dcup:dev='docker-compose -f docker-compose.yml -f docker-compose.dev.yml up'
+alias dcup:prod='docker-compose -f docker-compose.yml -f docker-compose.prod.yml up'
 alias dm='docker-machine'
 alias dmls='docker-machine ls'
 alias dprune='docker kill $(docker ps -a -q) && docker system prune -f'
