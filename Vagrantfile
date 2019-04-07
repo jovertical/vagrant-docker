@@ -4,6 +4,7 @@
 require 'yaml'
 
 settings = YAML.load_file('vagrant-docker.yaml')
+aliasesPath = "./aliases"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -69,6 +70,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update -y
   SHELL
+
+  if File.exist? aliasesPath then
+      config.vm.provision "file", source: aliasesPath, destination: "/tmp/bash_aliases"
+      config.vm.provision "shell" do |s|
+        s.inline = "awk '{ sub(\"\r$\", \"\"); print }' /tmp/bash_aliases > /home/vagrant/.bash_aliases && chown vagrant:vagrant /home/vagrant/.bash_aliases"
+      end
+  end
 
   config.vm.provision :docker
   config.vm.provision :docker_compose

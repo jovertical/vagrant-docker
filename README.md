@@ -61,3 +61,28 @@ vagrant ssh
 # list the files inside the directory we mapped into.
 ls /vagrant/code
 ```
+
+## Command Aliases
+For your convenience, many `docker` and `docker-compose` command aliases are included out of the box:
+
+```
+alias dcb='docker-compose build'
+alias dcdown='docker-compose down'
+alias dce='docker-compose exec'
+alias dcl='docker-compose logs'
+alias dclf='docker-compose logs -f'
+alias dc='docker-compose'
+alias dcps='docker-compose ps'
+alias dcr='docker-compose run'
+alias dcrestart='docker-compose restart'
+alias dcrm='docker-compose rm'
+alias dcstop='docker-compose stop'
+alias dcup='docker-compose up'
+alias dm='docker-machine'
+alias dmls='docker-machine ls'
+alias dprune='docker kill $(docker ps -a -q) && docker system prune -f'
+alias drit='docker exec -it'
+alias drma='docker rm $(docker ps -a -q)'
+alias drmai='docker rmi $(docker images -q)'
+alias dwipe='docker kill $(docker ps -a -q) && docker system prune -af'
+```
