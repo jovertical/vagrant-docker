@@ -56,7 +56,7 @@ The `folders` property of the `vagrant-docker.yaml` file lists all of the folder
 ```
 folders:
   - map: ~/code
-  - to: /home/vagrant/code
+    to: /home/vagrant/code
 ```
 
 ## Turn on the Engines

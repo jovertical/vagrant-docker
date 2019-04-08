@@ -5,4 +5,4 @@ cpus: 1
 
 folders:
   - map: ~/code
-  - to: /home/vagrant/code
+    to: /home/vagrant/code
